@@ -1,0 +1,19 @@
+---
+setup_vault_folder_owner: root
+setup_vault_folder_group: root
+setup_vault_create_folder: false
+
+setup_vault_image: hashicorp/vault
+setup_vault_version: latest
+
+setup_vault_create_network: false
+
+setup_vault_expose: true
+setup_vault_external_port: 8201
+
+setup_vault_data_path: ./data
+
+setup_vault_traefik: false
+setup_vault_traefik_default_labels: false
+setup_vault_traefik_custom_labels: ''
+...

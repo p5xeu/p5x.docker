@@ -1,0 +1,17 @@
+---
+services:
+  {{ cadvisor_project_name }}:
+    container_name: '{{ cadvisor_project_name }}'
+    image: '{{ cadvisor_image }}:{{ cadvisor_image_tag }}'
+    restart: always
+    privileged: true
+    volumes:
+      - '/:/rootfs:ro'
+      - '/var/run:/var/run:ro'
+      - '/sys:/sys:ro'
+      - '/var/lib/docker/:/var/lib/docker:ro'
+      - '/dev/disk/:/dev/disk:ro'
+      - '/dev/kmsg:/dev/kmsg:ro'
+    ports:
+      - '{{ cadvisor_port }}:8080'
+...

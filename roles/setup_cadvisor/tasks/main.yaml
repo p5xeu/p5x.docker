@@ -1,0 +1,22 @@
+---
+- name: Create directory
+  ansible.builtin.file:
+    path: '{{ setup_cadvisor_compose_folder_path }}'
+    state: 'directory'
+    mode: '0755'
+    owner: '{{ setup_cadvisor_folder_owner }}'
+    group: '{{ setup_cadvisor_folder_group }}'
+  when: setup_cadvisor_create_folder
+
+- name: Copy compose-file to host
+  ansible.builtin.template:
+    src: 'compose.yaml'
+    dest: '{{ setup_cadvisor_compose_folder_path }}/compose.yaml'
+    mode: '0644'
+
+- name: Startup cadvisor
+  ansible.builtin.include_role:
+    name: doofkopf.docker.compose_up
+  vars:
+    compose_up_src: '{{ setup_cadvisor_compose_folder_path }}'
+...

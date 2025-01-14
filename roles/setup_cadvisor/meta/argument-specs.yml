@@ -1,0 +1,63 @@
+---
+argument_specs:
+  main:
+    short_description: 'Configure cadvisor with compose'
+    description:
+      - 'Setup and configure cadvisor to run in a container with compose'
+    options:
+      setup_cadvisor_create_folder:
+        type: 'bool'
+        required: false
+        default: true
+        description:
+          - 'Set, if the Folder should be created'
+
+      setup_cadvisor_compose_folder_path:
+        type: 'str'
+        required: false
+        default: '/opt/docker/containers/cadvisor'
+        description:
+          - 'Path for the compose file'
+
+      setup_cadvisor_folder_owner:
+        type: 'str'
+        required: false
+        default: 'root'
+        description:
+          - 'Owner of the Folder and Files'
+
+      setup_cadvisor_folder_group:
+        type: 'str'
+        required: false
+        default: 'root'
+        description:
+          - 'Group of the Folder and Files'
+      
+      setup_cadvisor_project_name:
+        type: 'str'
+        required: false
+        default: 'cadvisor'
+        description:
+          - 'Name for the compose project and container'
+
+      setup_cadvisor_image:
+        type: 'str'
+        required: false
+        default: 'gcr.io/cadvisor/cadvisor'
+        description:
+          - 'Image(source) to use'
+
+      setup_cadvisor_image_tag:
+        type: 'str'
+        required: false
+        default: 'latest'
+        description:
+          - 'Imagetag to use'
+
+      setup_cadvisor_port:
+        type: 'int'
+        required: false
+        default: 9200
+        description:
+         - 'Port, on which cadvisor should be exposed'
+...
