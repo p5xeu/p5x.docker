@@ -31,7 +31,7 @@
   when: setup_vault_create_network
 
 - name: Start compose-file
-  community.docker.docker_v2:
+  community.docker.docker_compose_v2:
     project_src: '{{ setup_vault_folder_path }}'
     state: present
 ...
