@@ -10,6 +10,7 @@ argument_specs:
         required: true
         description:
           - Path of the compose-project
+          - Must be an absolute path
 
       setup_vault_folder_owner:
         type: str
@@ -85,23 +86,9 @@ argument_specs:
         required: false
         default: ./data
         description:
-          - Path, where the vault data should be stored
-          - If recursive, the path starts in the compose-folder
-
-      setup_vault_env_path:
-        type: str
-        required: false
-        description:
-          - Path, where the vault env-file should be stored
-          - If recursive, the path starts in the compose-folder
-          - If not defined, no env-file will be used
-
-      setup_vault_token:
-        type: str
-        required: false
-        description:
-          - Token,
-          - Will only be used in the vault_env file
+          - 'Path, where the vault data should be stored'
+          - 'Must be an absolute path'
+          - 'If you want to store it in the compose-folder, you can use something like: {{ setup_vault_folder_path }}/data'
 
       setup_vault_traefik:
         type: bool
@@ -133,4 +120,81 @@ argument_specs:
           - Custom traefik-labels to set
           - Should be set as multiline-string
           - Only required when traefik is used
+
+      setup_vault_transit:
+        type: bool
+        required: false
+        default: false
+        description:
+          - Set, to enable the transit-engine for vault (auto unsealing)
+      
+      setup_vault_transit_address:
+        type: str
+        required: false
+        default: ''
+        description:
+          - Set to the address of the unsealing-vault
+          - Only needed, if setup_vault_transit is true
+      
+      setup_vault_storage:
+        type: str
+        required: false
+        default: file
+        choices:
+          - file
+          - raft
+        description:
+          - 'Storagetype, which should be used for the vault'
+
+      setup_vault_transit_keyname:
+        type: str
+        required: false
+        default: 'unseal_key'
+        description:
+          - 'Name of the Key in the unsealing-vault'
+          - 'Should be unique in the unsealing-vault'
+
+      setup_vault_transit_token:
+        type: str
+        required: false
+        description:
+          - Token for the autounsealing, only used when setup_vault_transit is true
+          - Will be set in the vault_env file for autounsealing
+
+      setup_vault_bind_address:
+        type: str
+        required: false
+        default: 0.0.0.0
+        description:
+          - 'Address, to bind to'
+
+      setup_vault_bind_port:
+        type: str
+        required: false
+        default: 8200
+        description:
+          - 'Port, to bind to'
+
+      setup_vault_cluster_bind_address:
+        type: str
+        required: false
+        default: 0.0.0.0
+        description:
+          - 'Address, to bind the cluster to'
+          - 'Only required when setup_vault_cluster is true'
+
+      setup_vault_cluster_bind_port:
+        type: str
+        required: false
+        default: 8300
+        description:
+          - 'Port, to bind the cluster to'
+          - 'Only required when setup_vault_cluster is true'
+
+      setup_vault_cluster:
+        type: bool
+        required: false
+        default: false
+        description:
+          - 'Should the instance be part of a cluster'
 ...

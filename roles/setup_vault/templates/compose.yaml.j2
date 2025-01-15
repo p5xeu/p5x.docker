@@ -5,7 +5,7 @@ services:
     container_name: {{ setup_vault_name }}
 {% if setup_vault_expose %}
     ports:
-      - "{{ setup_vault_external_port }}:8201"
+      - "{{ setup_vault_external_port }}:{{ setup_vault_bind_port }}"
 {% endif %}
     restart: always
     volumes:
@@ -15,10 +15,10 @@ services:
     cap_add:
       - IPC_LOCK
     environment:
-      VAULT_ADDR: "http://127.0.0.1:8201"
+      VAULT_ADDR: "http://127.0.0.1:{{ setup_vault_bind_port }}"
     entrypoint: vault server -config=/vault/config/vault.hcl
-{% if setup_vault_env_path is defined and setup_vault_env_path | length > 0 %}
-    env_file: {{ setup_vault_env_path }}
+{% if setup_vault_transit %}
+    env_file: .vaultenv
 {% endif %}
 {% if (setup_vault_network is defined and setup_vault_network | length > 0) or setup_vault_traefik %}
     networks:
@@ -38,7 +38,7 @@ services:
       - "traefik.http.routers.{{ setup_vault_name }}.rule=Host(`{{ setup_vault_traefik_fqdn }}`)"
       - "traefik.http.routers.{{ setup_vault_name }}.entrypoints=websecure"
       - "traefik.http.routers.{{ setup_vault_name }}.tls=true"
-      - "traefik.http.services.{{ setup_vault_name }}.loadbalancer.server.port=8201"
+      - "traefik.http.services.{{ setup_vault_name }}.loadbalancer.server.port={{ setup_vault_bind_port }}"
       - "traefik.http.routers.{{ setup_vault_name }}.service={{ setup_vault_name }}"
       # Traefik-Network
       - "traefik.docker.network=traefik_public"

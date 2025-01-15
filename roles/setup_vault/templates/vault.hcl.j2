@@ -1,0 +1,35 @@
+
+{% if setup_vault_storage == 'file' %}
+storage "file" {
+   path = "/vault/file"
+}
+{% elif setup_vault_storage == 'raft' %}
+storage "raft" {
+   path    = "/vault/raft/"
+   node_id = "{{ setup_vault_name }}"
+}
+{% endif %}
+
+listener "tcp" {
+   address = "{{ setup_vault_bind_address }}:{{ setup_vault_bind_port }}"
+   {% if setup_vault_cluster -%} 
+   cluster_address = "{{ setup_vault_cluster_bind_address }}:{{ setup_vault_cluster_bind_port }}"
+   {% endif -%}
+   tls_disable = true
+}
+
+ui = true
+
+{% if setup_vault_transit %}
+seal "transit" {
+   address            = "{{ setup_vault_transit_address }}"
+   disable_renewal    = "false"
+   key_name           = "{{ setup_vault_transit_keyname }}"
+   mount_path         = "transit/"
+}
+{% endif %}
+
+{% if setup_vault_cluster %}
+cluster_addr = "http://{{ setup_vault_name }}:{{ setup_vault_cluster_bind_port }}"
+api_addr = "http://127.0.0.1:{{ setup_vault_bind_port }}"
+{% endif %}

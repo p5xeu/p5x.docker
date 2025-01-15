@@ -8,6 +8,22 @@
     group: '{{ setup_vault_folder_group }}'
   when: setup_vault_create_folder
 
+- name: Create configfolder
+  ansible.builtin.file:
+    path: '{{ setup_vault_data_path }}/config'
+    state: directory
+    mode: '0755'
+    owner: '{{ setup_vault_folder_owner }}'
+    group: '{{ setup_vault_folder_group }}'
+
+- name: Template vault.hcl
+  ansible.builtin.template:
+    src: 'vault.hcl.j2'
+    dest: '{{ setup_vault_data_path }}/config/vault.hcl'
+    owner: '{{ setup_vault_folder_owner }}'
+    group: '{{ setup_vault_folder_group }}'
+    mode: '0644'
+
 - name: Template composefile
   ansible.builtin.template:
     src: 'compose.yaml.j2'
@@ -19,11 +35,11 @@
 - name: Template vault env-file
   ansible.builtin.template:
     src: 'vaultenv.j2'
-    dest: '{{ setup_vault_folder_path }}/vaultenv'
+    dest: '{{ setup_vault_folder_path }}/.vaultenv'
     owner: '{{ setup_vault_folder_owner }}'
     group: '{{ setup_vault_folder_group }}'
     mode: '0644'
-  when: setup_vault_env_path is defined and setup_vault_env_path | length > 0
+  when: setup_vault_transit
 
 - name: Create network
   community.docker.docker_network:

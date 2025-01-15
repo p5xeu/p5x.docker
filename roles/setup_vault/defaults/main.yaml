@@ -8,12 +8,23 @@ setup_vault_version: latest
 
 setup_vault_create_network: false
 
+setup_vault_storage: 'file'
+setup_vault_transit: false
 setup_vault_expose: true
 setup_vault_external_port: 8201
+setup_vault_transit_keyname: 'unseal_key'
 
-setup_vault_data_path: ./data
+setup_vault_data_path: '{{ setup_vault_folder_path }}/data'
 
 setup_vault_traefik: false
 setup_vault_traefik_default_labels: false
 setup_vault_traefik_custom_labels: ''
+
+setup_vault_bind_address: 0.0.0.0
+setup_vault_bind_port: 8200
+
+setup_vault_cluster_bind_address: 0.0.0.0
+setup_vault_cluster_bind_port: 8300
+
+setup_vault_cluster: false
 ...
