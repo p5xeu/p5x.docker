@@ -10,7 +10,7 @@ services:
     restart: always
     volumes:
       - {{ setup_vault_data_path }}/logs:/vault/logs
-      - {{ setup_vault_data_path }}/raft:/vault/raft
+      - {{ setup_vault_data_path }}/{{ setup_vault_storage }}:/vault/{{ setup_vault_storage }}
       - {{ setup_vault_data_path }}/config:/vault/config
     cap_add:
       - IPC_LOCK
