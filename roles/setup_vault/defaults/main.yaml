@@ -20,10 +20,10 @@ setup_vault_traefik: false
 setup_vault_traefik_default_labels: false
 setup_vault_traefik_custom_labels: ''
 
-setup_vault_bind_address: [::]
+setup_vault_bind_address: "[::]"
 setup_vault_bind_port: 8200
 
-setup_vault_cluster_bind_address: [::]
+setup_vault_cluster_bind_address: "[::]"
 setup_vault_cluster_bind_port: 8300
 
 setup_vault_cluster: false
