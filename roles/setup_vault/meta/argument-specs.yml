@@ -160,6 +160,13 @@ argument_specs:
         description:
           - Token for the autounsealing, only used when setup_vault_transit is true
           - Will be set in the vault_env file for autounsealing
+      
+      setup_vault_disable_mlock:
+        type: bool
+        required: false
+        default: false
+        description:
+          - Should mlock being disabled or enabled
 
       setup_vault_bind_address:
         type: str
