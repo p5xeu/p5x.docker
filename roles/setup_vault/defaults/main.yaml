@@ -13,7 +13,7 @@ setup_vault_transit: false
 setup_vault_expose: true
 setup_vault_external_port: 8201
 setup_vault_transit_keyname: 'unseal_key'
-setup_vault_disable_mlock: false
+setup_vault_disable_mlock: "false"
 
 setup_vault_data_path: '{{ setup_vault_folder_path }}/data'
 
