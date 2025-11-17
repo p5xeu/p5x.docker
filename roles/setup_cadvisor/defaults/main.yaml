@@ -1,6 +1,6 @@
 ---
 setup_cadvisor_create_folder: true
-setup_cadvisor_compose_folder_path: '/opt/docker/containers/cadvisor'
+setup_cadvisor_compose_folder_path: '/opt/docker/cadvisor'
 setup_cadvisor_folder_owner: 'root'
 setup_cadvisor_folder_group: 'root'
 

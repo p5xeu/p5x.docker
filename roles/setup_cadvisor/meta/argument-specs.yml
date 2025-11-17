@@ -15,7 +15,7 @@ argument_specs:
       setup_cadvisor_compose_folder_path:
         type: 'str'
         required: false
-        default: '/opt/docker/containers/cadvisor'
+        default: '/opt/docker/cadvisor'
         description:
           - 'Path for the compose file'
 
@@ -32,7 +32,7 @@ argument_specs:
         default: 'root'
         description:
           - 'Group of the Folder and Files'
-      
+
       setup_cadvisor_project_name:
         type: 'str'
         required: false
