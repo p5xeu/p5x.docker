@@ -14,9 +14,8 @@
     dest: '{{ setup_cadvisor_compose_folder_path }}/compose.yaml'
     mode: '0644'
 
-- name: Startup cadvisor
-  ansible.builtin.include_role:
-    name: doofkopf.docker.compose_up
-  vars:
-    compose_up_src: '{{ setup_cadvisor_compose_folder_path }}'
+- name: Start compose-file
+  community.docker.docker_compose_v2:
+    project_src: '{{ setup_cadvisor_compose_folder_path }}'
+    state: present
 ...

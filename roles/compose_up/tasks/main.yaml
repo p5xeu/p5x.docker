@@ -1,7 +1,0 @@
----
-- name: Take down project
-  community.docker.docker_compose_v2:
-    project_src: '{{ compose_up_path }}'
-    pull: '{{ compose_up_pull_policy }}'
-    state: present
-...

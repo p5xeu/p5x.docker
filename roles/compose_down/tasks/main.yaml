@@ -1,6 +1,0 @@
----
-- name: Take down project
-  community.docker.docker_compose_v2:
-    project_src: '{{ compose_down_path }}'
-    state: absent
-...
