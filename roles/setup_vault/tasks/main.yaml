@@ -16,6 +16,14 @@
     owner: '{{ setup_vault_folder_owner }}'
     group: '{{ setup_vault_folder_group }}'
 
+- name: Create storage folder
+  ansible.builtin.file:
+    path: '{{ setup_vault_data_path }}/{{ setup_vault_storage }}'
+    state: directory
+    mode: '0770'
+    owner: '100'
+    group: '1000'
+
 - name: Template vault.hcl
   ansible.builtin.template:
     src: 'vault.hcl.j2'
