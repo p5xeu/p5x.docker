@@ -9,6 +9,9 @@ services:
     command:
       # Log-Level
       - "--log.level=INFO"
+      # Enable Healthchecks
+      - "--ping=true"
+      - "--ping.entryPoint=websecure"
       # Dashboard
       - "--api.dashboard=true"
       - "--api.insecure=true"
