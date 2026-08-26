@@ -11,7 +11,6 @@ services:
       - "--log.level=INFO"
       # Enable Healthchecks
       - "--ping=true"
-      - "--ping.entryPoint=websecure"
       # Dashboard
       - "--api.dashboard=true"
       - "--api.insecure=true"
@@ -75,6 +74,11 @@ services:
       - "traefik.http.routers.traefik.tls=true"
       - "traefik.http.services.traefik.loadbalancer.server.port=8080"
       - "traefik.http.middlewares.api-auth.basicauth.users={{ setup_traefik_dashboard_auth }}"
+      # Ping-Endpoint
+      - "traefik.http.routers.ping.rule=Host(`{{ setup_traefik_dashboard_url }}`) && Path(`/ping`)"
+      - "traefik.http.routers.ping.entrypoints=websecure"
+      - "traefik.http.routers.ping.tls=true"
+      - "traefik.http.routers.ping.service=ping@internal"
 {% if setup_traefik_dashboard_certresolver is defined and setup_traefik_dashboard_certresolver | length > 0 %}
       - "traefik.http.routers.traefik.tls.certresolver={{ setup_traefik_dashboard_certresolver }}"
 {% endif %}
